@@ -1,6 +1,7 @@
 import "./LoadEnv"; 
 import app from "./Server";
 import logger from "./shared/Logger";
+import PostgresDataSource from "./db"
 
 
 
