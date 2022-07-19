@@ -12,6 +12,7 @@ AppDataSource.initialize()
     .then(async () => {
 
         logger.info("Database✳️  connected");
+        
         // VALIDATE ENV
         validateEnv();
 
