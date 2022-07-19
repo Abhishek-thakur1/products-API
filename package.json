@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Abhishek-thakur1/productsAPI#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "command-line-args": "^5.2.1",
     "config": "^3.3.7",
     "cookie-parser": "^1.4.6",
@@ -41,6 +42,7 @@
     "zod": "^3.17.9"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/command-line-args": "^5.2.0",
     "@types/config": "^0.0.41",
     "@types/cookie-parser": "^1.4.3",
