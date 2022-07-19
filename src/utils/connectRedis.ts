@@ -10,8 +10,8 @@ const redisClient = createClient({
 const connectRedis = async () => {
     try {
         await redisClient.connect();
-        logger.info('Redis client connected successfully!')
-        redisClient.set('try', 'Hello Welcome to Express with TypeORM');
+        logger.info('Redis🍎 client connected successfully!')
+        redisClient.set('try', 'Hello from a CAT😸');
     } catch (err) {
         logger.error('Error connecting to Redis', err);
         setTimeout(connectRedis, 5000);
