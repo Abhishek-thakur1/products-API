@@ -1,7 +1,9 @@
 import { CookieOptions, NextFunction, Response, Request } from 'express'
-import {createUserInput} from '../schemas/user.schema'
+import {createUserInput, loginUserInput} from '../schemas/user.schema'
 import config = require('config')
-import { createUser } from 'src/services/user.service'
+import { createUser, findUserByEmail, signTokens } from 'src/services/user.service'
+import {User} from '../entities/user.entity'
+import AppError from 'src/utils/appError'
 
 
 const cookieOptions: CookieOptions = {
@@ -58,6 +60,46 @@ export const registerUserHandler = async(
                 message: ''
             })
         }
+        next(err);
+    }
+}
+
+
+// Handling user LOGIN
+
+export const loginUserHandler = async (
+    req: Request<{}, {}, loginUserInput>,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const {email, password} = req.body
+        const user = await findUserByEmail({email})
+
+        // /Check if user exists and password is valid
+        if (!user || !(await User.comparePasswords(password, user.password))) {
+            return next(new AppError(400, "Invalid email or password"));
+        }
+
+        //  Sign Access and Refresh Tokens
+        const { access_token, refresh_token } = await signTokens(user);
+
+        // Add Cookies
+        res.cookie("access_token", access_token, accessTokenCookieOptions);
+        res.cookie("refresh_token", refresh_token, refreshTokenCookieOptions);
+        res.cookie('logged_in', true, {
+            ...accessTokenCookieOptions,
+            httpOnly: false
+        });
+
+
+        // Send response
+        res.status(200).json({
+            status: 'success',
+            access_token,
+        });
+        
+    } catch (err: any) {
         next(err);
     }
 }
