@@ -167,3 +167,30 @@ export const refreshAccessTokenHandler = async (
         next(err);
     }
 };
+
+
+
+// Logout User Controller
+const logout = (res: Response) => {
+    res.cookie("access_token", "", { maxAge: -1 });
+    res.cookie("refresh_token", "", { maxAge: -1 });
+    res.cookie("logged_in", "", { maxAge: -1 });
+};
+export const logoutHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const user = res.locals.user;
+
+        await redisClient.del(user.id);
+        logout(res);
+
+        res.status(200).json({
+            status: 'success',
+        });
+    } catch (err: any) {
+        next(err);
+    }
+};
