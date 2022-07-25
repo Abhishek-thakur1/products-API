@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/index.js --env=production",
     "start:dev": "nodemon --watch ./**/*.ts --exec ts-node src/index.ts",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "build": "tsc -p .",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migrate": "rm -rf build && yarn build && yarn typeorm migration:generate ./src/migrations/added-entity -d ./src/utils/data-source.ts",
+    "db:push": "rm -rf build && yarn build && yarn typeorm migration:run -d src/utils/data-source.ts"
   },
   "repository": {
     "type": "git",

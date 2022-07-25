@@ -1,11 +1,11 @@
 import { CookieOptions, NextFunction, Response, Request } from 'express'
 import {createUserInput, loginUserInput} from '../schemas/user.schema'
 import config = require('config')
-import { createUser, findUserByEmail, findUserById, signTokens } from 'src/services/user.service'
+import { createUser, findUserByEmail, findUserById, signTokens } from '../services/user.service'
 import {User} from '../entities/user.entity'
-import AppError from 'src/utils/appError'
-import { signJwt, verifyJwt } from 'src/utils/jwt'
-import redisClient from 'src/utils/connectRedis'
+import AppError from '../utils/appError'
+import { signJwt, verifyJwt } from '../utils/jwt'
+import redisClient from '../utils/connectRedis'
 
 
 const cookieOptions: CookieOptions = {

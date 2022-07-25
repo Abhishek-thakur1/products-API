@@ -1,6 +1,6 @@
 import config from 'config';
-import redisClient from 'src/utils/connectRedis';
-import { signJwt } from 'src/utils/jwt';
+import redisClient from '../utils/connectRedis';
+import { signJwt } from '../utils/jwt';
 import { DeepPartial } from 'typeorm';
 import {User} from '../entities/user.entity'
 import { createUserInput } from "../schemas/user.schema";
