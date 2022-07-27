@@ -110,7 +110,7 @@ export const updateProductHandler = async (
 
 
 // delete product
-export const deletePostHandler = async (
+export const deleteProductHandler = async (
     req: Request<DeleteProductInput>,
     res: Response,
     next: NextFunction
