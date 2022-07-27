@@ -1,3 +1,4 @@
+import { Request } from "express";
 import {
     FindOptionsRelations,
     FindOptionsSelect,
@@ -17,5 +18,22 @@ export const createProduct = async (input: Partial<Product>) => {
 export const getProductById = async (productId: string) => {
     return await productRepository.findOneBy({ id: productId})
 }
+
+export const getAllProducts = async (req: Request) => {
+    const builder = productRepository.createQueryBuilder('post');
+
+    if (req.query.search) {
+        builder.where('product.title LIKE :search OR product.content LIKE :search', {
+            search: `%${req.query.search}%`,
+        });
+    }
+
+    if (req.query.sort) {
+        const sortQuery = req.query.sort === '-price' ? 'DESC' : 'ASC';
+        builder.orderBy('product.title', sortQuery);
+    }
+
+    return await builder.getMany();
+};
 
 
