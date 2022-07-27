@@ -14,7 +14,7 @@ export const createProduct = async (input: Partial<Product>) => {
     return await productRepository.save(productRepository.create({...input}))
 }
 
-export const getProduct = async (productId: string) => {
+export const getProductById = async (productId: string) => {
     return await productRepository.findOneBy({ id: productId})
 }
 
