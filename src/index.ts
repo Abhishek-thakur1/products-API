@@ -6,11 +6,13 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { AppDataSource } from "./utils/data-source";
 import AppError from "./utils/appError";
-import authRouter from "./routes/auth.routes";
-import userRouter from "./routes/user.routes";
 import validateEnv from "./utils/validEnv";
 import logger from "./shared/Logger";
 import redisClient from "./utils/connectRedis";
+// Routes
+import authRouter from "./routes/auth.routes";
+import userRouter from "./routes/user.routes";
+import productRouter from "./routes/product.routes";
 
 AppDataSource.initialize()
     .then(async () => {
@@ -45,6 +47,7 @@ AppDataSource.initialize()
         // ROUTES
         app.use("/api/auth", authRouter);
         app.use("/api/users", userRouter);
+        app.use("/api/products", productRouter);
 
         // HEALTH CHECKER
         app.get("/api/healthchecker", async (_, res: Response) => {

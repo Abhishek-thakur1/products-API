@@ -24,7 +24,7 @@ const router = express.Router();
 router.use(deserializeUser, requireUser);
 
 router
-    .route("/")
+    .route("/up")
     .post(validate(createProductSchema), createProductHandler)
     .get(getAllProductsHandler);
 
@@ -34,3 +34,6 @@ router
     .get(validate(getProductSchema), getProductByIdHandler)
     .patch(validate(updateProductSchema), updateProductHandler)
     .delete(validate(deleteProductSchema), deleteProductHandler);
+
+
+export default router
